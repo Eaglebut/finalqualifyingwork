@@ -13,7 +13,7 @@ import java.util.List;
 public class TestController {
 
   @GetMapping
-  public List<User> getUser() {
+  public List<User> getUserList() {
     DataProvider dataProvider = new DataProvider();
     return dataProvider.getEntities(User.class);
   }

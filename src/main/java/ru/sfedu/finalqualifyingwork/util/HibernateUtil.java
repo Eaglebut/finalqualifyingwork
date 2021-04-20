@@ -1,4 +1,4 @@
-package ru.sfedu.finalqualifyingwork.utils;
+package ru.sfedu.finalqualifyingwork.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;

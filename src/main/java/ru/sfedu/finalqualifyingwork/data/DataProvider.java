@@ -2,11 +2,10 @@ package ru.sfedu.finalqualifyingwork.data;
 
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
-import ru.sfedu.finalqualifyingwork.utils.HibernateUtil;
+import ru.sfedu.finalqualifyingwork.util.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 public class DataProvider {
