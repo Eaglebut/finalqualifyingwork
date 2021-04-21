@@ -1,4 +1,4 @@
-package ru.sfedu.finalqualifyingwork.controller;
+package ru.sfedu.finalqualifyingwork.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
