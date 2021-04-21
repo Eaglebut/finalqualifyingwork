@@ -14,7 +14,6 @@ import java.util.List;
 
 public class HibernateUtil {
     private static SessionFactory sessionFactory;
-    //@Value("${hibernate.config.path}")
     private static final String hibernateConfigPath = "src/main/resources/hibernate.cfg.xml";
 
     private static final List<Class> classList = new ArrayList<>(Arrays.asList(new Class[]{

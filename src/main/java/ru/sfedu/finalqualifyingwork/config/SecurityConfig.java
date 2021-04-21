@@ -5,12 +5,14 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,6 +22,7 @@ import ru.sfedu.finalqualifyingwork.model.enums.Permission;
 import ru.sfedu.finalqualifyingwork.model.enums.Role;
 import ru.sfedu.finalqualifyingwork.repository.HibernateUserDao;
 import ru.sfedu.finalqualifyingwork.repository.UserDao;
+import ru.sfedu.finalqualifyingwork.security.JwtConfigurer;
 
 
 @Configuration
@@ -27,37 +30,32 @@ import ru.sfedu.finalqualifyingwork.repository.UserDao;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-  private final UserDetailsService userDetailsService;
+  private final JwtConfigurer jwtConfigurer;
 
-  @Autowired
-  public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
-    this.userDetailsService = userDetailsService;
+  public SecurityConfig(JwtConfigurer jwtConfigurer) {
+    this.jwtConfigurer = jwtConfigurer;
   }
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http
             .csrf().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
             .authorizeRequests()
             .antMatchers("/").permitAll()
+            .antMatchers("/api/v1/auth/login").permitAll()
             .anyRequest()
             .authenticated()
             .and()
-            .httpBasic()
+            .apply(jwtConfigurer)
     ;
   }
 
-  @Override
-  protected void configure(AuthenticationManagerBuilder auth) {
-    auth.authenticationProvider(daoAuthenticationProvider());
-  }
-
   @Bean
-  protected DaoAuthenticationProvider daoAuthenticationProvider(){
-    DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-    daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-    daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-    return daoAuthenticationProvider;
+  @Override
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
   }
 
   @Bean
