@@ -3,6 +3,8 @@ package ru.sfedu.finalqualifyingwork.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.sfedu.finalqualifyingwork.model.enums.Role;
+import ru.sfedu.finalqualifyingwork.model.enums.Status;
 
 import javax.persistence.*;
 
@@ -14,7 +16,11 @@ import javax.persistence.*;
 public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private long id;
   private String email;
   private String password;
+  @Enumerated(EnumType.STRING)
+  private Role role;
+  @Enumerated(EnumType.STRING)
+  private Status status;
 }

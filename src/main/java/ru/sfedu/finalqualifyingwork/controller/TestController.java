@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import ru.sfedu.finalqualifyingwork.model.User;
 import ru.sfedu.finalqualifyingwork.repository.UserDao;
@@ -15,10 +16,12 @@ import java.util.List;
 public class TestController {
 
   private final UserDao userDao;
+  private final PasswordEncoder passwordEncoder;
 
   @Autowired
-  public TestController(UserDao userDao) {
+  public TestController(UserDao userDao, PasswordEncoder passwordEncoder) {
     this.userDao = userDao;
+    this.passwordEncoder = passwordEncoder;
   }
 
   @GetMapping
@@ -37,6 +40,7 @@ public class TestController {
   @PostMapping
   @PreAuthorize("hasAuthority('developers:write')")
   public User createUser(@RequestBody User user){
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
     userDao.saveUser(user);
     return user;
   }
