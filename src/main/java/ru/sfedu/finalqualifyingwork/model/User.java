@@ -1,27 +1,26 @@
 package ru.sfedu.finalqualifyingwork.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.sfedu.finalqualifyingwork.model.enums.Role;
-import ru.sfedu.finalqualifyingwork.model.enums.Status;
+import ru.sfedu.finalqualifyingwork.model.enums.AccountStatus;
 
 import javax.persistence.*;
 
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Data
 @Entity
 @Table(name = "\"user\"")
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+public class User extends BaseEntity {
   @Column(unique = true)
   private String email;
   private String password;
+  private String name;
+  private String surname;
   @Enumerated(EnumType.STRING)
   private Role role;
   @Enumerated(EnumType.STRING)
-  private Status status;
+  private AccountStatus status;
 }

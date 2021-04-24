@@ -3,7 +3,7 @@ package ru.sfedu.finalqualifyingwork.repository;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import ru.sfedu.finalqualifyingwork.model.User;
-import ru.sfedu.finalqualifyingwork.model.enums.Status;
+import ru.sfedu.finalqualifyingwork.model.enums.AccountStatus;
 import ru.sfedu.finalqualifyingwork.util.HibernateDataUtil;
 import ru.sfedu.finalqualifyingwork.util.Statuses;
 
@@ -45,7 +45,7 @@ public class HibernateUserDao implements UserDao{
       return Statuses.NOT_FOUNDED;
     }
     var user = optUser.get();
-    user.setStatus(Status.BANNED);
+    user.setStatus(AccountStatus.BANNED);
     editUser(user);
     return Statuses.SUCCESS;
   }

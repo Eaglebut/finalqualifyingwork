@@ -3,6 +3,9 @@ package ru.sfedu.finalqualifyingwork.util;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.query.Query;
+import ru.sfedu.finalqualifyingwork.model.BaseEntity;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,15 +14,19 @@ import java.util.Optional;
 @Slf4j
 public class HibernateDataUtil {
 
+    private static <T> Query<T> createQueryWithArgs(Session session, Class<T> tClass, String queryString, Object[] args){
+      Query<T> query = session.createQuery(queryString, tClass);
+      for (int i = 0; i < args.length; i++) {
+        query.setParameter(i + 1, args[i]);
+      }
+      return query;
+    }
+
     public static <T> Optional<T> executeQuerySingle(Class<T> tClass, String queryString, Object... args) {
       try {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.getTransaction().begin();
-        var query = session.createQuery(queryString, tClass);
-        for (int i = 0; i < args.length; i++) {
-          query.setParameter(i + 1, args[i]);
-        }
-        var entity = query.getSingleResult();
+        var entity = createQueryWithArgs(session, tClass, queryString, args).getSingleResult();
         session.flush();
         return Optional.ofNullable(entity);
       } catch (ConstraintViolationException e) {
@@ -31,11 +38,7 @@ public class HibernateDataUtil {
     try {
       Session session = HibernateUtil.getSessionFactory().openSession();
       session.getTransaction().begin();
-      var query = session.createQuery(queryString, tClass);
-      for (int i = 0; i < args.length; i++) {
-        query.setParameter(i + 1, args[i]);
-      }
-      var resultList = query.getResultList();
+      var resultList = createQueryWithArgs(session, tClass, queryString, args).getResultList();
       session.flush();
       return resultList;
     } catch (ConstraintViolationException e) {
@@ -44,7 +47,7 @@ public class HibernateDataUtil {
   }
 
 
-  public static <T> Optional<T> getEntityById(Class<T> tClass, long id) {
+  public static <T extends BaseEntity> Optional<T> getEntityById(Class<T> tClass, long id) {
     try {
       Session session = HibernateUtil.getSessionFactory().openSession();
       session.getTransaction().begin();
@@ -60,7 +63,7 @@ public class HibernateDataUtil {
     }
   }
 
-  public static <T> Statuses createEntity(T entity) {
+  public static <T extends BaseEntity> Statuses createEntity(T entity) {
     try {
       Session session = HibernateUtil.getSessionFactory().openSession();
       session.getTransaction().begin();
@@ -74,7 +77,7 @@ public class HibernateDataUtil {
     }
   }
 
-  public static <T> Statuses updateEntity(T entity) {
+  public static <T extends BaseEntity> Statuses updateEntity(T entity) {
     try {
       Session session = HibernateUtil.getSessionFactory().openSession();
       session.getTransaction().begin();
@@ -88,7 +91,7 @@ public class HibernateDataUtil {
     }
   }
 
-  public static <T> Statuses deleteEntity(Class<T> tClass, long id) {
+  public static <T extends BaseEntity> Statuses deleteEntity(Class<T> tClass, long id) {
     try {
       var optEntity = getEntityById(tClass, id);
       if (optEntity.isEmpty()) {
