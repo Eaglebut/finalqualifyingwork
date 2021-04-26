@@ -66,6 +66,7 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>5.4.30.Final</version>
 		</dependency>
+
 		<dependency>
 			<groupId>net.minidev</groupId>
 			<artifactId>json-smart</artifactId>
@@ -76,6 +77,18 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>3.0.0</version>
 		</dependency>
 
 	</dependencies>
@@ -101,6 +114,22 @@
 					<source>16</source>
 					<target>16</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.1.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>sources</goal>
+							<goal>resolve</goal>
+						</goals>
+						<configuration>
+							<classifier>javadoc</classifier>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
