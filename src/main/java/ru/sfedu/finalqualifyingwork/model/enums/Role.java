@@ -10,12 +10,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Getter
 public enum Role {
-  USER(Set.of(Permission.DEVELOPERS_READ)),
-  ADMIN(Set.of(Permission.DEVELOPERS_READ, Permission.DEVELOPERS_WRITE));
+  USER(Set.of(Permission.USER_ALL));
 
   private final Set<Permission> permissions;
 
-  public Set<SimpleGrantedAuthority> getAuthorities(){
+  public Set<SimpleGrantedAuthority> getAuthorities() {
     return getPermissions().stream()
             .map(permission -> new SimpleGrantedAuthority(permission.getPermission()))
             .collect(Collectors.toSet());

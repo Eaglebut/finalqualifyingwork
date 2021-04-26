@@ -18,6 +18,6 @@ public class BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-  private Date created;
-  private Date lastUpdated;
+  private Date created = new Date();
+  private Date lastUpdated = new Date();
 }
