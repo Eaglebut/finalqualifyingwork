@@ -1,12 +1,12 @@
 package ru.sfedu.finalqualifyingwork.model;
 
 import lombok.*;
-import ru.sfedu.finalqualifyingwork.model.enums.Role;
 import ru.sfedu.finalqualifyingwork.model.enums.AccountStatus;
+import ru.sfedu.finalqualifyingwork.model.enums.Role;
 
 import javax.persistence.*;
 
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
 @ToString(callSuper = true)
 @Data
 @Entity

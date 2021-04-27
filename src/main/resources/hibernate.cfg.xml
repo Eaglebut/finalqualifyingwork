@@ -9,7 +9,7 @@
         <property name="connection.username">server</property>
         <property name="connection.password">1</property>
         <property name="connection.pool_size">100</property>
-        <property name="hibernate.hbm2ddl.auto">create</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
         <!-- SQL диалект, определяется платформой СУБД-->
         <property name="dialect">org.hibernate.dialect.PostgreSQL10Dialect</property>
         <!-- Включить автоматическое управление контекстом сессии -->

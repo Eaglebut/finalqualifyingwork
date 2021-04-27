@@ -13,7 +13,7 @@ import java.util.Date;
 @MappedSuperclass
 @Data
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(doNotUseGetters = true)
 public class BaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,5 +1,6 @@
 package ru.sfedu.finalqualifyingwork.util;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
@@ -14,7 +15,10 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class HibernateDataUtil {
+
+  private final HibernateUtil hibernateUtil;
 
   private synchronized <T> Query<T> createQueryWithArgs(Session session, Class<T> tClass, String queryString, Object[] args) {
     Query<T> query = session.createQuery(queryString, tClass);
@@ -26,7 +30,7 @@ public class HibernateDataUtil {
 
   public synchronized <T> Optional<T> executeQuerySingle(Class<T> tClass, String queryString, Object... args) {
     try {
-      Session session = HibernateUtil.getSessionFactory().openSession();
+      Session session = hibernateUtil.getSessionFactory().openSession();
       session.getTransaction().begin();
       var entity = createQueryWithArgs(session, tClass, queryString, args).getSingleResult();
       session.flush();
@@ -36,9 +40,10 @@ public class HibernateDataUtil {
     }
   }
 
+
   public synchronized <T> List<T> executeQueryList(Class<T> tClass, String queryString, Object... args) {
     try {
-      Session session = HibernateUtil.getSessionFactory().openSession();
+      Session session = hibernateUtil.getSessionFactory().openSession();
       session.getTransaction().begin();
       var resultList = createQueryWithArgs(session, tClass, queryString, args).getResultList();
       session.flush();
@@ -51,7 +56,7 @@ public class HibernateDataUtil {
 
   public synchronized <T extends BaseEntity> Optional<T> getEntityById(Class<T> tClass, long id) {
     try {
-      Session session = HibernateUtil.getSessionFactory().openSession();
+      Session session = hibernateUtil.getSessionFactory().openSession();
       session.getTransaction().begin();
       T entity = session.get(tClass, id);
       session.getTransaction().commit();
@@ -67,7 +72,7 @@ public class HibernateDataUtil {
 
   public synchronized <T extends BaseEntity> Statuses createEntity(T entity) {
     try {
-      Session session = HibernateUtil.getSessionFactory().openSession();
+      Session session = hibernateUtil.getSessionFactory().openSession();
       session.getTransaction().begin();
       session.save(entity);
       session.getTransaction().commit();
@@ -82,7 +87,7 @@ public class HibernateDataUtil {
   @Transactional
   public synchronized <T extends BaseEntity> Statuses updateEntity(T entity) {
     try {
-      Session session = HibernateUtil.getSessionFactory().openSession();
+      Session session = hibernateUtil.getSessionFactory().openSession();
       session.getTransaction().begin();
       session.update(entity);
       session.getTransaction().commit();
@@ -100,7 +105,7 @@ public class HibernateDataUtil {
       if (optEntity.isEmpty()) {
         return Statuses.NOT_FOUNDED;
       }
-      Session session = HibernateUtil.getSessionFactory().openSession();
+      Session session = hibernateUtil.getSessionFactory().openSession();
       session.getTransaction().begin();
       session.delete(optEntity.get());
       session.getTransaction().commit();
