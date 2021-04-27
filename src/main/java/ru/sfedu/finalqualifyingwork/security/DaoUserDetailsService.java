@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.sfedu.finalqualifyingwork.model.User;
 import ru.sfedu.finalqualifyingwork.model.enums.AccountStatus;
-import ru.sfedu.finalqualifyingwork.repository.UserDao;
+import ru.sfedu.finalqualifyingwork.repository.interfaces.UserDao;
 
 @Service("userDetailsServiceImpl")
 public class DaoUserDetailsService implements UserDetailsService {

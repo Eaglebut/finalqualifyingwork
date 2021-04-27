@@ -8,7 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import ru.sfedu.finalqualifyingwork.repository.UserDao;
+import ru.sfedu.finalqualifyingwork.repository.interfaces.UserDao;
 import ru.sfedu.finalqualifyingwork.rest.api.v1.dto.user.GetUserDto;
 import ru.sfedu.finalqualifyingwork.rest.api.v1.dto.user.PostUserDto;
 import ru.sfedu.finalqualifyingwork.security.JwtTokenProvider;

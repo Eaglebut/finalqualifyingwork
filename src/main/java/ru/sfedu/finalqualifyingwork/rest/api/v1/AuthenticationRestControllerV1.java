@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.sfedu.finalqualifyingwork.model.User;
-import ru.sfedu.finalqualifyingwork.repository.UserDao;
+import ru.sfedu.finalqualifyingwork.repository.interfaces.UserDao;
 import ru.sfedu.finalqualifyingwork.rest.api.v1.dto.AuthenticationRequestDto;
 import ru.sfedu.finalqualifyingwork.rest.api.v1.dto.user.GetUserDto;
 import ru.sfedu.finalqualifyingwork.rest.api.v1.dto.user.PostUserDto;

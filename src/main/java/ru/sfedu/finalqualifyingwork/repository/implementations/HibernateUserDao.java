@@ -1,14 +1,14 @@
-package ru.sfedu.finalqualifyingwork.repository;
+package ru.sfedu.finalqualifyingwork.repository.implementations;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import org.springframework.stereotype.Service;
 import ru.sfedu.finalqualifyingwork.model.User;
-import ru.sfedu.finalqualifyingwork.model.enums.AccountStatus;
+import ru.sfedu.finalqualifyingwork.repository.interfaces.UserDao;
 import ru.sfedu.finalqualifyingwork.util.HibernateDataUtil;
 import ru.sfedu.finalqualifyingwork.util.Statuses;
 
-import java.util.List;
+import java.util.Date;
 import java.util.Optional;
 
 @Service("userDaoImpl")
@@ -24,17 +24,7 @@ public class HibernateUserDao implements UserDao {
 
   @Override
   public Optional<User> getUser(long id) {
-    return hibernateDataUtil.executeQuerySingle(User.class, "from User where id = ?1", id);
-  }
-
-  @Override
-  public List<User> getUserList() {
-    return hibernateDataUtil.executeQueryList(User.class, "from User");
-  }
-
-  @Override
-  public Statuses deleteUser(long id) {
-    return hibernateDataUtil.deleteEntity(User.class, id);
+    return hibernateDataUtil.getEntityById(User.class, id);
   }
 
   @Override
@@ -43,19 +33,8 @@ public class HibernateUserDao implements UserDao {
   }
 
   @Override
-  public Statuses banUser(long id) {
-    var optUser = getUser(id);
-    if (optUser.isEmpty()){
-      return Statuses.NOT_FOUNDED;
-    }
-    var user = optUser.get();
-    user.setStatus(AccountStatus.BANNED);
-    editUser(user);
-    return Statuses.SUCCESS;
-  }
-
-  @Override
   public Statuses editUser(@NonNull User user) {
+    user.setLastUpdated(new Date());
     return hibernateDataUtil.updateEntity(user);
   }
 }
