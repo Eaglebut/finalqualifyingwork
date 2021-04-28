@@ -29,7 +29,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/auth")
 @AllArgsConstructor
-public class AuthenticationRestControllerV1 {
+public class AuthenticationRestController {
 
   private final AuthenticationManager authenticationManager;
   private final UserDao userDao;

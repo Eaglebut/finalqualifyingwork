@@ -15,7 +15,7 @@ import ru.sfedu.finalqualifyingwork.security.JwtTokenProvider;
 import ru.sfedu.finalqualifyingwork.util.Statuses;
 
 @RestController
-@RequestMapping("/v1/user")
+@RequestMapping("/api/v1/user")
 @AllArgsConstructor
 public class UserController {
 

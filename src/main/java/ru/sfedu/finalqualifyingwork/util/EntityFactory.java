@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.sfedu.finalqualifyingwork.model.Group;
 import ru.sfedu.finalqualifyingwork.model.User;
 import ru.sfedu.finalqualifyingwork.model.enums.AccountStatus;
+import ru.sfedu.finalqualifyingwork.model.enums.GroupType;
 import ru.sfedu.finalqualifyingwork.model.enums.Role;
 
 import java.text.DateFormat;
@@ -44,6 +45,7 @@ public class EntityFactory {
     for (int i = 0; i < amount; i++) {
       Group group = new Group();
       group.setName("testGroupName№" + i);
+      group.setGroupType(GroupType.STANDARD_GROUP);
       groupList.add(group);
     }
     log.debug("finishing generate groups");
