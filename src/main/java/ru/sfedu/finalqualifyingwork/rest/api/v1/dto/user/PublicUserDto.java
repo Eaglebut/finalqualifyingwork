@@ -10,6 +10,7 @@ import ru.sfedu.finalqualifyingwork.model.User;
 @NoArgsConstructor
 @ApiModel
 public class PublicUserDto {
+  private long id;
   @ApiModelProperty(example = "mail@example.com")
   private String email;
   @ApiModelProperty(example = "John")
@@ -18,6 +19,7 @@ public class PublicUserDto {
   private String surname;
 
   public PublicUserDto(User user) {
+    id = user.getId();
     email = user.getEmail();
     name = user.getName();
     surname = user.getSurname();
@@ -25,6 +27,7 @@ public class PublicUserDto {
 
   public User toUser() {
     User user = new User();
+    user.setId(id);
     user.setEmail(email);
     user.setName(name);
     user.setSurname(surname);
