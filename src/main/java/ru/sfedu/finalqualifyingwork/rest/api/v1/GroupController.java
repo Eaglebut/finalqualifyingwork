@@ -49,7 +49,7 @@ public class GroupController {
   @GetMapping(path = "{id}")
   @PreAuthorize("hasAuthority('user:all')")
   public ResponseEntity<?> getGroup(@RequestHeader("Authorization") @ApiParam(hidden = true) String token,
-                                    @RequestParam long id) {
+                                    @PathVariable long id) {
     try {
       var user = userDao.getUser(jwtTokenProvider.getUsername(token))
               .orElseThrow(() -> new NoSuchElementException("user not founded"));
@@ -108,7 +108,8 @@ public class GroupController {
   @PutMapping(path = "{id}")
   @PreAuthorize("hasAuthority('user:all')")
   public ResponseEntity<?> updateGroup(@RequestHeader("Authorization") @ApiParam(hidden = true) String token,
-                                       @RequestBody PostGroupDto groupDto, @RequestParam long id) {
+                                       @RequestBody PostGroupDto groupDto,
+                                       @PathVariable long id) {
     try {
       var user = userDao.getUser(jwtTokenProvider.getUsername(token))
               .orElseThrow(() -> new NoSuchElementException("user not founded"));
@@ -153,7 +154,7 @@ public class GroupController {
   @DeleteMapping(path = "{id}")
   @PreAuthorize("hasAuthority('user:all')")
   public ResponseEntity<?> deleteGroup(@RequestHeader("Authorization") @ApiParam(hidden = true) String token,
-                                       @RequestParam long id) {
+                                       @PathVariable long id) {
     try {
       var user = userDao.getUser(jwtTokenProvider.getUsername(token))
               .orElseThrow(() -> new NoSuchElementException("user not founded"));
