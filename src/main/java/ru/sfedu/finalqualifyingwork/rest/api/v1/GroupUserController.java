@@ -37,11 +37,11 @@ public class GroupUserController {
   @GetMapping(path = "users")
   @PreAuthorize("hasAuthority('user:all')")
   public ResponseEntity<?> getGroupUsers(@RequestHeader("Authorization") @ApiParam(hidden = true) String token,
-                                         @PathVariable long id) {
+                                         @PathVariable long groupId) {
     try {
       var user = userDao.getUser(jwtTokenProvider.getUsername(token))
               .orElseThrow(() -> createHttpException(HttpStatus.NOT_FOUND, "user not founded"));
-      var group = groupDao.getGroup(id).orElseThrow(() ->
+      var group = groupDao.getGroup(groupId).orElseThrow(() ->
               createHttpException(HttpStatus.NOT_FOUND, "group not founded"));
       if (!group.getMemberList().containsKey(user)) {
         throw createHttpException(HttpStatus.FORBIDDEN, "User is not a part of this group");
@@ -102,7 +102,7 @@ public class GroupUserController {
       }
       group.getMemberList().put(requestUser, UserRole.INVITED);
       if (!groupDao.editGroup(group).equals(Statuses.SUCCESS)) {
-        throw createHttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Ошибка при обновлении информации о группе");
+        throw createHttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error while updating group information");
       }
       return ResponseEntity.ok(new GroupUserDto(new PublicUserDto(requestUser),
               group.getMemberList().get(requestUser)));
@@ -137,7 +137,7 @@ public class GroupUserController {
       }
       group.getMemberList().replace(requestUser, role);
       if (!groupDao.editGroup(group).equals(Statuses.SUCCESS)) {
-        throw createHttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Ошибка при обновлении информации о группе");
+        throw createHttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error while updating group information");
       }
       return ResponseEntity.ok(new GroupUserDto(new PublicUserDto(requestUser),
               group.getMemberList().get(requestUser)));
@@ -166,7 +166,7 @@ public class GroupUserController {
               createHttpException(HttpStatus.NOT_FOUND, "User you were looking for was not found"));
       group.getMemberList().remove(requestUser);
       if (!groupDao.editGroup(group).equals(Statuses.SUCCESS)) {
-        throw createHttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Ошибка при обновлении информации о группе");
+        throw createHttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error while updating group information");
       }
       Map<PublicUserDto, UserRole> publicUserMap = new HashMap<>();
       group.getMemberList().forEach((groupUser, userRole) -> publicUserMap.put(new PublicUserDto(groupUser), userRole));
@@ -193,7 +193,7 @@ public class GroupUserController {
       }
       group.getMemberList().replace(user, UserRole.MEMBER);
       if (!groupDao.editGroup(group).equals(Statuses.SUCCESS)) {
-        throw createHttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Ошибка при обновлении информации о группе");
+        throw createHttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error while updating group information");
       }
       return ResponseEntity.ok(new GroupUserDto(new PublicUserDto(user),
               group.getMemberList().get(user)));
