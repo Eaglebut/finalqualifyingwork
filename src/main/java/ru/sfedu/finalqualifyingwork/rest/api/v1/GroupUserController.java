@@ -22,7 +22,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("api/v1/group")
+@RequestMapping("api/v1/group/{groupId}")
 @AllArgsConstructor
 public class GroupUserController {
 
@@ -34,7 +34,7 @@ public class GroupUserController {
     return HttpClientErrorException.create(status, message, HttpHeaders.EMPTY, null, null);
   }
 
-  @GetMapping(path = "{id}/users")
+  @GetMapping(path = "users")
   @PreAuthorize("hasAuthority('user:all')")
   public ResponseEntity<?> getGroupUsers(@RequestHeader("Authorization") @ApiParam(hidden = true) String token,
                                          @PathVariable long id) {
@@ -54,7 +54,7 @@ public class GroupUserController {
     }
   }
 
-  @GetMapping(path = "{groupId}/user/{userId}")
+  @GetMapping(path = "user/{userId}")
   @PreAuthorize("hasAuthority('user:all')")
   public ResponseEntity<?> getGroupUser(@RequestHeader("Authorization") @ApiParam(hidden = true) String token,
                                         @PathVariable(name = "groupId") long groupId,
@@ -79,7 +79,7 @@ public class GroupUserController {
     }
   }
 
-  @PostMapping(path = "{groupId}/user/{userId}")
+  @PostMapping(path = "user/{userId}")
   @PreAuthorize("hasAuthority('user:all')")
   public ResponseEntity<?> addUserToGroup(@RequestHeader("Authorization") @ApiParam(hidden = true) String token,
                                           @PathVariable(name = "groupId") long groupId,
@@ -111,7 +111,7 @@ public class GroupUserController {
     }
   }
 
-  @PutMapping(path = "{groupId}/user/{userId}/{role}")
+  @PutMapping(path = "user/{userId}/{role}")
   @PreAuthorize("hasAuthority('user:all')")
   public ResponseEntity<?> changeUsersRole(@RequestHeader("Authorization") @ApiParam(hidden = true) String token,
                                            @PathVariable(name = "groupId") long groupId,
@@ -146,7 +146,7 @@ public class GroupUserController {
     }
   }
 
-  @DeleteMapping(path = "{groupId}/user/{userId}")
+  @DeleteMapping(path = "user/{userId}")
   @PreAuthorize("hasAuthority('user:all')")
   public ResponseEntity<?> deleteUserFromGroup(@RequestHeader("Authorization") @ApiParam(hidden = true) String token,
                                                @PathVariable(name = "groupId") long groupId,
@@ -176,7 +176,7 @@ public class GroupUserController {
     }
   }
 
-  @PostMapping(path = "{groupId}/user/accept")
+  @PostMapping(path = "user/accept")
   @PreAuthorize("hasAuthority('user:all')")
   public ResponseEntity<?> acceptInvitation(@RequestHeader("Authorization") @ApiParam(hidden = true) String token,
                                             @PathVariable(name = "groupId") long groupId) {
