@@ -8,7 +8,6 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Service;
 import ru.sfedu.finalqualifyingwork.model.BaseEntity;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -84,7 +83,6 @@ public class HibernateDataUtil {
     }
   }
 
-  @Transactional
   public synchronized <T extends BaseEntity> Statuses updateEntity(T entity) {
     try {
       Session session = hibernateUtil.getSessionFactory().openSession();

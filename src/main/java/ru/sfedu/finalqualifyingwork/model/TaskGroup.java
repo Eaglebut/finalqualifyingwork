@@ -7,6 +7,7 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
@@ -16,5 +17,6 @@ import java.util.List;
 public class TaskGroup extends BaseEntity {
   private String name;
   @OneToMany(fetch = FetchType.EAGER)
-  private List<Task> taskList;
+  @EqualsAndHashCode.Exclude
+  private List<Task> taskList = new ArrayList<>();
 }

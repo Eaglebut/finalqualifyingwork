@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.sfedu.finalqualifyingwork.model.Group;
+import ru.sfedu.finalqualifyingwork.model.TaskGroup;
 import ru.sfedu.finalqualifyingwork.model.User;
 import ru.sfedu.finalqualifyingwork.model.enums.AccountStatus;
 import ru.sfedu.finalqualifyingwork.model.enums.GroupType;
@@ -51,5 +52,18 @@ public class EntityFactory {
     log.debug("finishing generate groups");
     return groupList;
   }
+
+  public List<TaskGroup> generateTaskGroup(int amount) {
+    log.debug("starting generate task groups");
+    List<TaskGroup> taskGroupList = new ArrayList<>();
+    for (int i = 0; i < amount; i++) {
+      TaskGroup taskGroup = new TaskGroup();
+      taskGroup.setName("testTaskGroupName№" + i);
+      taskGroupList.add(taskGroup);
+    }
+    log.debug("finishing generate groups");
+    return taskGroupList;
+  }
+
 
 }

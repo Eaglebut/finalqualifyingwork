@@ -37,6 +37,8 @@ public class HibernateGroupDao implements GroupDao {
 
   @Override
   public Statuses createGroup(Group group) {
+    group.setCreated(new Date());
+    group.setLastUpdated(new Date());
     return hibernateDataUtil.createEntity(group);
   }
 
