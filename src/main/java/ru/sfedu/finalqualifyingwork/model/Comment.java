@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @ToString(callSuper = true)
 public class Comment extends BaseEntity {
-  @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.EAGER, optional = false)
   private User author;
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "baseComment", cascade = CascadeType.ALL)
   @EqualsAndHashCode.Exclude
@@ -22,8 +22,8 @@ public class Comment extends BaseEntity {
   private String text;
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
-  @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.EAGER, optional = false)
   private Task owner;
-  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.EAGER)
   private Comment baseComment;
 }
