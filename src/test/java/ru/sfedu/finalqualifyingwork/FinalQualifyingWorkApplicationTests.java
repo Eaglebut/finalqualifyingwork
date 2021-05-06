@@ -8,6 +8,6 @@ class FinalQualifyingWorkApplicationTests {
 
 	@Test
 	void contextLoads() {
-	}
 
+	}
 }
