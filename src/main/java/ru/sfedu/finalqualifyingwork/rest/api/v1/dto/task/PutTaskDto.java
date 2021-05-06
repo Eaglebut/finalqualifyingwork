@@ -4,34 +4,29 @@ import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.sfedu.finalqualifyingwork.model.Task;
-import ru.sfedu.finalqualifyingwork.rest.api.v1.dto.user.PublicUserDto;
 
 @Data
 @NoArgsConstructor
 @ApiModel
-public class GetTaskDto {
+public class PutTaskDto {
 
-  private long id;
   private String name;
   private String text;
-  private PublicUserDto author;
   private int position;
+  private long baseTaskGroupId;
 
-  public GetTaskDto(Task task) {
-    id = task.getId();
+  public PutTaskDto(Task task) {
     name = task.getName();
     text = task.getText();
-    author = new PublicUserDto(task.getAuthor());
     position = task.getPosition();
+    baseTaskGroupId = task.getOwner().getId();
   }
 
   public Task toTask() {
     Task task = new Task();
-    task.setId(id);
     task.setName(name);
     task.setText(text);
     task.setPosition(position);
-    task.setAuthor(author.toUser());
     return task;
   }
 }
