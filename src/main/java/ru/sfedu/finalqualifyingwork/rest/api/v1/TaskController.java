@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("api/v1/group/{groupId}/taskGroup/{taskGroupId}/")
 @AllArgsConstructor
-public class GroupTaskGroupsTaskController {
+public class TaskController {
 
   private final UserDao userDao;
   private final GroupDao groupDao;
@@ -142,13 +142,16 @@ public class GroupTaskGroupsTaskController {
       var task = getTask(taskId, taskGroup);
       taskGroup.getTaskList().remove(task);
       if (taskDto.getBaseTaskGroupId() != taskGroupId) {
+        if (taskDto.getPosition() > taskGroup.getTaskList().size() || taskDto.getPosition() < 0) {
+          taskDto.setPosition(taskGroup.getTaskList().size());
+        }
         if (!taskGroupDao.editTaskGroup(taskGroup).equals(Statuses.SUCCESS)) {
           throw createHttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Error while updating task group information");
         }
         taskGroup = getTaskGroup(taskDto.getBaseTaskGroupId(), group);
         task.setOwner(taskGroup);
       }
-      if (taskDto.getPosition() > group.getTaskGroups().size() || taskDto.getPosition() < 0) {
+      if (taskDto.getPosition() > taskGroup.getTaskList().size() || taskDto.getPosition() < 0) {
         taskDto.setPosition(taskGroup.getTaskList().size());
       }
       task.setName(taskDto.getName());

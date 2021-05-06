@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("api/v1/group/{groupId}")
 @AllArgsConstructor
-public class GroupTaskGroupsController {
+public class TaskGroupsController {
 
   private final UserDao userDao;
   private final GroupDao groupDao;
