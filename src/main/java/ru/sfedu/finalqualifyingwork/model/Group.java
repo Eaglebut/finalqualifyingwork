@@ -14,6 +14,7 @@ import java.util.*;
 @ToString(callSuper = true)
 @Entity(name = "groups")
 public class Group extends BaseEntity {
+  @Column(nullable = false)
   private String name;
   @ElementCollection(fetch = FetchType.EAGER)
   @Column(name = "user_role")
@@ -26,6 +27,7 @@ public class Group extends BaseEntity {
   @EqualsAndHashCode.Exclude
   @OrderBy("position")
   private List<TaskGroup> taskGroups = new ArrayList<>();
+  @Column(nullable = false)
   private GroupType groupType;
   @ManyToOne(fetch = FetchType.EAGER)
   @EqualsAndHashCode.Exclude

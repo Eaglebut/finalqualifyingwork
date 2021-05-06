@@ -4,10 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,12 +13,16 @@ import java.util.List;
 @Data
 @ToString(callSuper = true)
 public class TaskGroup extends BaseEntity {
+  @Column(nullable = false)
   private String name;
-  @OneToMany(fetch = FetchType.EAGER)
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "owner")
   @EqualsAndHashCode.Exclude
+  @OrderBy("position")
   private List<Task> taskList = new ArrayList<>();
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   private Group ownerGroup;
+  @Column(nullable = false)
   private int position;
 }
