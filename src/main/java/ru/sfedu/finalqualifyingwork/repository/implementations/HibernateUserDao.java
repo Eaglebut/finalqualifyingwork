@@ -11,7 +11,7 @@ import ru.sfedu.finalqualifyingwork.util.Statuses;
 import java.util.Date;
 import java.util.Optional;
 
-@Service("userDaoImpl")
+@Service
 @AllArgsConstructor
 public class HibernateUserDao implements UserDao {
 

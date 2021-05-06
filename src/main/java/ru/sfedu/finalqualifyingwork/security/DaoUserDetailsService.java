@@ -1,7 +1,6 @@
 package ru.sfedu.finalqualifyingwork.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +15,7 @@ public class DaoUserDetailsService implements UserDetailsService {
   private final UserDao userDao;
 
   @Autowired
-  public DaoUserDetailsService(@Qualifier("userDaoImpl") UserDao userDao) {
+  public DaoUserDetailsService(UserDao userDao) {
     this.userDao = userDao;
   }
 

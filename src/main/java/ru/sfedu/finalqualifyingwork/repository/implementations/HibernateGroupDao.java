@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
-@Service("groupDaoImpl")
+@Service
 public class HibernateGroupDao implements GroupDao {
 
   private final HibernateDataUtil hibernateDataUtil;
