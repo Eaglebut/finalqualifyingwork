@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,4 +20,8 @@ public class TaskGroup extends BaseEntity {
   @OneToMany(fetch = FetchType.EAGER)
   @EqualsAndHashCode.Exclude
   private List<Task> taskList = new ArrayList<>();
+  @ManyToOne(fetch = FetchType.EAGER)
+  @ToString.Exclude
+  private Group ownerGroup;
+  private int position;
 }

@@ -22,8 +22,9 @@ public class Group extends BaseEntity {
   private Map<User, UserRole> memberList = new HashMap<>();
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "baseGroup", cascade = CascadeType.ALL)
   private Set<Group> subGroups = new HashSet<>();
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "ownerGroup")
   @EqualsAndHashCode.Exclude
+  @OrderBy("position")
   private List<TaskGroup> taskGroups = new ArrayList<>();
   private GroupType groupType;
   @ManyToOne(fetch = FetchType.EAGER)
