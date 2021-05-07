@@ -17,15 +17,18 @@ public class Comment extends BaseEntity {
   private User author;
   @OneToMany(fetch = FetchType.EAGER, mappedBy = "baseComment", cascade = CascadeType.ALL)
   @EqualsAndHashCode.Exclude
+  @OrderBy("created")
   private List<Comment> commentList = new ArrayList<>();
   @Column(nullable = false)
   private String text;
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
-  @ManyToOne(fetch = FetchType.EAGER, optional = false)
+  @ManyToOne(fetch = FetchType.EAGER)
   private Task owner;
   @ManyToOne(fetch = FetchType.EAGER)
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   private Comment baseComment;
   @Column(nullable = false)
-  boolean isEdited = false;
+  private boolean isEdited = false;
 }

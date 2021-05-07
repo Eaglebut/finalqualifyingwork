@@ -32,6 +32,7 @@ public class HibernateCommentDao implements CommentDao {
   @Override
   public Statuses editComment(Comment comment) {
     comment.setLastUpdated(new Date());
+    comment.setEdited(true);
     return hibernateDataUtil.updateEntity(comment);
   }
 
