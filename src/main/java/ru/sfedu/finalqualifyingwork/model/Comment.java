@@ -26,4 +26,6 @@ public class Comment extends BaseEntity {
   private Task owner;
   @ManyToOne(fetch = FetchType.EAGER)
   private Comment baseComment;
+  @Column(nullable = false)
+  boolean isEdited = false;
 }

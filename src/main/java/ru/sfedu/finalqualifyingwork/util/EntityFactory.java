@@ -3,10 +3,7 @@ package ru.sfedu.finalqualifyingwork.util;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.sfedu.finalqualifyingwork.model.Group;
-import ru.sfedu.finalqualifyingwork.model.Task;
-import ru.sfedu.finalqualifyingwork.model.TaskGroup;
-import ru.sfedu.finalqualifyingwork.model.User;
+import ru.sfedu.finalqualifyingwork.model.*;
 import ru.sfedu.finalqualifyingwork.model.enums.AccountStatus;
 import ru.sfedu.finalqualifyingwork.model.enums.GroupType;
 import ru.sfedu.finalqualifyingwork.model.enums.Role;
@@ -84,5 +81,18 @@ public class EntityFactory {
     return taskList;
   }
 
+  public List<Comment> generateComment(int amount) {
+    log.debug("starting generate comments");
+    List<Comment> commentList = new ArrayList<>();
+    for (int i = 0; i < amount; i++) {
+      Comment comment = new Comment();
+      comment.setText("test comment text № " + i);
+      comment.setAuthor(generateUser(1).stream().findAny().orElseThrow());
+      comment.setOwner(generateTask(1).stream().findAny().orElseThrow());
+      commentList.add(comment);
+    }
+    log.debug("finishing generate comments");
+    return commentList;
+  }
 
 }
