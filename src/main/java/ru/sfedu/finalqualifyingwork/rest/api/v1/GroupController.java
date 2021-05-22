@@ -23,6 +23,8 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("api/v1/group")
 @AllArgsConstructor
+@PreAuthorize("hasAuthority('user:all')")
+@CrossOrigin(origins = "*")
 public class GroupController {
 
   private final UserDao userDao;

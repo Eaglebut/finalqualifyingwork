@@ -17,6 +17,7 @@ import ru.sfedu.finalqualifyingwork.util.Statuses;
 @RestController
 @RequestMapping("/api/v1/user")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class UserController {
 
   private final UserDao userDao;
@@ -26,7 +27,6 @@ public class UserController {
 
   @GetMapping
   @PreAuthorize("hasAuthority('user:all')")
-
   public ResponseEntity<GetUserDto> getUser(@RequestHeader("Authorization") @ApiParam(hidden = true) String token) {
     var optUser = userDao.getUser(jwtTokenProvider.getUsername(token));
     return optUser.map(user -> ResponseEntity.ok(new GetUserDto(user)))

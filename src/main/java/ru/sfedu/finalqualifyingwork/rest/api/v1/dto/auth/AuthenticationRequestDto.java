@@ -1,4 +1,4 @@
-package ru.sfedu.finalqualifyingwork.rest.api.v1.dto;
+package ru.sfedu.finalqualifyingwork.rest.api.v1.dto.auth;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

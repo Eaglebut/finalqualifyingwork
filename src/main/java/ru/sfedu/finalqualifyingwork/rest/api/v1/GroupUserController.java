@@ -24,6 +24,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("api/v1/group/{groupId}")
 @AllArgsConstructor
+@PreAuthorize("hasAuthority('user:all')")
+@CrossOrigin(origins = "*")
 public class GroupUserController {
 
   private final UserDao userDao;

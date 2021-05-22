@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import ru.sfedu.finalqualifyingwork.model.Group;
@@ -27,6 +28,8 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("api/v1/group/{groupId}/taskGroup/{taskGroupId}/")
 @AllArgsConstructor
+@PreAuthorize("hasAuthority('user:all')")
+@CrossOrigin(origins = "*")
 public class TaskController {
 
   private final UserDao userDao;
