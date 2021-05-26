@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class GetGroupDto {
   private long id;
   private String name;
+  private String description;
   private GroupType groupType;
   private Map<PublicUserDto, UserRole> memberList;
   private Set<GetGroupDto> subGroups;
@@ -27,6 +28,7 @@ public class GetGroupDto {
     id = group.getId();
     name = group.getName();
     memberList = new HashMap<>();
+    description = group.getDescription();
     group.getMemberList().forEach((user, userRole) -> memberList.put(new PublicUserDto(user), userRole));
     subGroups = new HashSet<>();
     group.getSubGroups().forEach(subGroup -> subGroups.add(new GetGroupDto(subGroup)));

@@ -79,6 +79,7 @@ public class GroupController {
               .orElseThrow(() -> createHttpException(HttpStatus.NOT_FOUND, "user not founded"));
       Group group = new Group();
       group.setName(groupDto.getName());
+      group.setDescription(groupDto.getDescription());
       group.getMemberList().put(user, UserRole.CREATOR);
       group.setGroupType(GroupType.STANDARD_GROUP);
       if (groupDto.getBaseGroupId() != 0) {
@@ -140,6 +141,7 @@ public class GroupController {
         group.setGroupType(GroupType.STANDARD_GROUP);
       }
       group.setName(groupDto.getName());
+      group.setDescription(groupDto.getDescription());
       if (!groupDao.editGroup(group).equals(Statuses.SUCCESS)) {
         throw createHttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Something goes wrong");
       }

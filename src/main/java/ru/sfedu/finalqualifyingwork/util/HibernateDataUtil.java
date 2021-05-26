@@ -33,6 +33,7 @@ public class HibernateDataUtil {
       session.getTransaction().begin();
       var entity = createQueryWithArgs(session, tClass, queryString, args).getSingleResult();
       session.flush();
+      session.close();
       return Optional.ofNullable(entity);
     } catch (ConstraintViolationException e) {
       return Optional.empty();
@@ -46,6 +47,7 @@ public class HibernateDataUtil {
       session.getTransaction().begin();
       var resultList = createQueryWithArgs(session, tClass, queryString, args).getResultList();
       session.flush();
+      session.close();
       return resultList;
     } catch (ConstraintViolationException e) {
       return new ArrayList<>();

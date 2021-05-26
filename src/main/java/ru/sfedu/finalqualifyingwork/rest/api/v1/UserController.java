@@ -17,7 +17,7 @@ import ru.sfedu.finalqualifyingwork.util.Statuses;
 @RestController
 @RequestMapping("/api/v1/user")
 @AllArgsConstructor
-@CrossOrigin(origins = "*")
+@CrossOrigin
 public class UserController {
 
   private final UserDao userDao;

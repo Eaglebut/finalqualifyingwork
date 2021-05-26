@@ -3,6 +3,7 @@ package ru.sfedu.finalqualifyingwork.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.annotations.Type;
 import ru.sfedu.finalqualifyingwork.model.enums.GroupType;
 import ru.sfedu.finalqualifyingwork.model.enums.UserRole;
 
@@ -16,6 +17,9 @@ import java.util.*;
 public class Group extends BaseEntity {
   @Column(nullable = false)
   private String name;
+  @Column
+  @Type(type = "text")
+  private String description;
   @ElementCollection(fetch = FetchType.EAGER)
   @Column(name = "user_role")
   @Enumerated(EnumType.STRING)
